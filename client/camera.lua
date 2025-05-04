@@ -1,5 +1,6 @@
 local currentCameraIndex = 0
 local createdCamera = 0
+local instructions = nil
 
 local function GetCurrentTime()
     local hours = GetClockHours()
@@ -161,6 +162,11 @@ CreateThread(function()
                 DoScreenFadeOut(250)
                 while not IsScreenFadedOut() do
                     Wait(0)
+                end
+                -- Clearing Scaleform
+                if instructions then
+                    ReleaseScaleformMovie(instructions)
+                    instructions = nil
                 end
                 CloseSecurityCamera()
                 SendNUIMessage({
